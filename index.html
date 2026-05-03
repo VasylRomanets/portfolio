@@ -22,6 +22,7 @@
   <meta name="twitter:title" content="Vasyl Romanets — Senior Unity Developer" />
   <meta name="twitter:description" content="Senior Unity Developer. Moon Active. Summer Catchers. 11+ years. Kyiv, Ukraine." />
   <meta name="twitter:image" content="https://raw.githubusercontent.com/VasylRomanets/portfolio/main/og-preview.jpg" />
+  <link rel="image_src" href="https://raw.githubusercontent.com/VasylRomanets/portfolio/main/og-preview.jpg" />
   <meta name="theme-color" content="#00966a" />
   <meta name="keywords"
     content="Unity Developer, C#, mobile game development, Unity3D, performance optimization, SOLID, Zenject, Moon Active, Pet Master, Travel Town, Ukraine" />
@@ -251,11 +252,6 @@
 
     /* ── HERO ────────────────────────────────────────── */
     #hero {
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .hero-inner {
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -1128,7 +1124,7 @@
 
     /* ── RESPONSIVE ──────────────────────────────────── */
     @media (max-width: 1024px) {
-      .hero-inner {
+      #hero {
         flex-direction: column-reverse;
         align-items: flex-start;
         gap: 36px;
@@ -1178,7 +1174,7 @@
         padding: 64px 20px;
       }
 
-      .hero-inner {
+      #hero {
         padding: 92px 20px 52px;
         gap: 24px;
         min-height: 100svh;
@@ -1447,7 +1443,6 @@
 
   <!-- HERO -->
   <section id="hero">
-    <div class="hero-inner">
     <div class="hero-content">
       <h1 class="hero-name">Vasyl<br /><em>Romanets</em></h1>
       <p class="hero-role">
@@ -1489,7 +1484,6 @@
     <div class="hero-photo-wrap">
       <img id="heroPhoto" class="hero-photo" alt="Vasyl Romanets" />
     </div>
-    </div><!-- /.hero-inner -->
   </section>
 
   <!-- ABOUT -->
