@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23080a0f'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui%2Csans-serif' font-weight='700' font-size='14' fill='%235b8dee'%3EVR%3C/text%3E%3C/svg%3E" />
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23080a0f'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui%2Csans-serif' font-weight='700' font-size='14' fill='%2300e5a0'%3EVR%3C/text%3E%3C/svg%3E" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vasyl Romanets — Senior Unity Developer</title>
   <meta name="description"
@@ -13,7 +13,15 @@
   <meta property="og:description"
     content="Senior Unity Developer. Moon Active. Summer Catchers. 11+ years. Kyiv, Ukraine." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://vasylromanets.github.io/portfolio/" />
   <meta property="og:image" content="https://raw.githubusercontent.com/VasylRomanets/portfolio/main/og-preview.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Vasyl Romanets — Senior Unity Developer" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Vasyl Romanets — Senior Unity Developer" />
+  <meta name="twitter:description" content="Senior Unity Developer. Moon Active. Summer Catchers. 11+ years. Kyiv, Ukraine." />
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/VasylRomanets/portfolio/main/og-preview.jpg" />
   <meta name="theme-color" content="#00966a" />
   <meta name="keywords"
     content="Unity Developer, C#, mobile game development, Unity3D, performance optimization, SOLID, Zenject, Moon Active, Pet Master, Travel Town, Ukraine" />
@@ -243,6 +251,11 @@
 
     /* ── HERO ────────────────────────────────────────── */
     #hero {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .hero-inner {
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -274,7 +287,7 @@
 
     .hero-name {
       font-family: "Syne", sans-serif;
-      font-size: clamp(3.6rem, 7.5vw, 6.2rem);
+      font-size: clamp(2.6rem, 7.5vw, 6.2rem);
       font-weight: 800;
       letter-spacing: -0.03em;
       line-height: 1;
@@ -398,10 +411,6 @@
     /* ── SECTION BASE ────────────────────────────────── */
     section {
       padding: 100px 52px;
-      scroll-margin-top: 68px;
-    }
-
-    #hero {
       scroll-margin-top: 68px;
     }
 
@@ -1119,7 +1128,7 @@
 
     /* ── RESPONSIVE ──────────────────────────────────── */
     @media (max-width: 1024px) {
-      #hero {
+      .hero-inner {
         flex-direction: column-reverse;
         align-items: flex-start;
         gap: 36px;
@@ -1169,9 +1178,19 @@
         padding: 64px 20px;
       }
 
-      #hero {
+      .hero-inner {
         padding: 92px 20px 52px;
         gap: 24px;
+        min-height: 100svh;
+      }
+
+      .hero-role {
+        font-size: 0.68rem;
+        letter-spacing: 0.04em;
+      }
+
+      .role-line2 {
+        display: block;
       }
 
       .hero-photo {
@@ -1428,11 +1447,11 @@
 
   <!-- HERO -->
   <section id="hero">
+    <div class="hero-inner">
     <div class="hero-content">
       <h1 class="hero-name">Vasyl<br /><em>Romanets</em></h1>
       <p class="hero-role">
-        Senior Unity Developer &nbsp;&bull;&nbsp; 11+ Years Experience &nbsp;&bull;&nbsp; Kyiv, Ukraine
-        &#127482;&#127462;
+        Senior Unity Developer &nbsp;&bull;&nbsp; 11+ Years Experience<span class="role-line2"> &nbsp;&bull;&nbsp; Kyiv, Ukraine &#127482;&#127462;</span>
       </p>
       <p class="hero-pitch">
         I write <strong>C# that teams are proud to maintain</strong> &mdash;
@@ -1470,6 +1489,7 @@
     <div class="hero-photo-wrap">
       <img id="heroPhoto" class="hero-photo" alt="Vasyl Romanets" />
     </div>
+    </div><!-- /.hero-inner -->
   </section>
 
   <!-- ABOUT -->
