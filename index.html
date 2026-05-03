@@ -3,6 +3,8 @@
 
 <head>
   <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23080a0f'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui%2Csans-serif' font-weight='700' font-size='14' fill='%235b8dee'%3EVR%3C/text%3E%3C/svg%3E" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vasyl Romanets — Senior Unity Developer</title>
   <meta name="description"
@@ -11,6 +13,8 @@
   <meta property="og:description"
     content="Senior Unity Developer. Moon Active. Summer Catchers. 11+ years. Kyiv, Ukraine." />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://raw.githubusercontent.com/VasylRomanets/portfolio/main/og-preview.jpg" />
+  <meta name="theme-color" content="#00966a" />
   <meta name="keywords"
     content="Unity Developer, C#, mobile game development, Unity3D, performance optimization, SOLID, Zenject, Moon Active, Pet Master, Travel Town, Ukraine" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,7 +31,6 @@
       --surface: #ffffff;
       --border: #d8dce2;
       --accent: #00966a;
-      --accent2: #007a56;
       --accent-dim: rgba(0, 150, 106, 0.1);
       --text: #1a1d21;
       --text2: #4a5260;
@@ -43,7 +46,6 @@
       --surface: #1e2428;
       --border: #2a3038;
       --accent: #00e5a0;
-      --accent2: #00b37d;
       --accent-dim: rgba(0, 229, 160, 0.12);
       --text: #e8eaed;
       --text2: #9ba3ac;
@@ -67,7 +69,7 @@
       background: var(--bg);
       color: var(--text);
       font-family: "Inter", sans-serif;
-      font-weight: 300;
+      font-weight: 400;
       line-height: 1.7;
       transition:
         background 0.3s,
@@ -157,6 +159,20 @@
       color: var(--accent);
     }
 
+    .nav-links a.active {
+      color: var(--accent);
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: var(--accent);
+      margin-top: 1px;
+      border-radius: 1px;
+    }
+
     .nav-controls {
       display: flex;
       align-items: center;
@@ -199,7 +215,25 @@
       color: var(--text);
     }
 
-    .nav-menu-btn svg {
+    .nav-close-btn {
+      display: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: var(--text);
+      z-index: 100;
+    }
+
+    .nav-links.open .nav-close-btn {
+      display: flex;
+    }
+
+    .nav-menu-btn svg,
+    .nav-close-btn svg {
       width: 22px;
       height: 22px;
       stroke: currentColor;
@@ -221,7 +255,7 @@
 
     #hero::before {
       content: "";
-      position: fixed;
+      position: absolute;
       inset: 0;
       background-image:
         linear-gradient(var(--border) 1px, transparent 1px),
@@ -238,27 +272,6 @@
       flex: 1;
     }
 
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 0.72rem;
-      color: var(--accent);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 26px;
-      opacity: 0;
-      animation: fadeUp 0.6s 0.1s forwards;
-    }
-
-    .hero-eyebrow::before {
-      content: "";
-      width: 26px;
-      height: 1px;
-      background: var(--accent);
-    }
-
     .hero-name {
       font-family: "Syne", sans-serif;
       font-size: clamp(3.6rem, 7.5vw, 6.2rem);
@@ -267,7 +280,7 @@
       line-height: 1;
       margin-bottom: 18px;
       opacity: 0;
-      animation: fadeUp 0.6s 0.2s forwards;
+      animation: fadeUp 0.6s 0.1s forwards;
     }
 
     .hero-name em {
@@ -283,7 +296,7 @@
       text-transform: uppercase;
       margin-bottom: 28px;
       opacity: 0;
-      animation: fadeUp 0.6s 0.3s forwards;
+      animation: fadeUp 0.6s 0.2s forwards;
     }
 
     .hero-pitch {
@@ -293,7 +306,7 @@
       max-width: 53ch;
       margin-bottom: 42px;
       opacity: 0;
-      animation: fadeUp 0.6s 0.4s forwards;
+      animation: fadeUp 0.6s 0.3s forwards;
     }
 
     .hero-pitch strong {
@@ -306,7 +319,7 @@
       flex-wrap: wrap;
       gap: 10px;
       opacity: 0;
-      animation: fadeUp 0.6s 0.5s forwards;
+      animation: fadeUp 0.6s 0.4s forwards;
     }
 
     .btn-fill {
@@ -319,7 +332,7 @@
       font-family: "Inter", sans-serif;
       font-size: 0.85rem;
       font-weight: 500;
-      border-radius: var(--r);
+      border-radius: var(--radius);
       transition:
         transform 0.2s,
         opacity 0.2s;
@@ -341,7 +354,7 @@
       font-size: 0.85rem;
       font-weight: 400;
       border: 1px solid var(--border);
-      border-radius: var(--r);
+      border-radius: var(--radius);
       transition:
         border-color 0.2s,
         color 0.2s,
@@ -375,7 +388,7 @@
       height: 400px;
       border-radius: 20px;
       object-fit: cover;
-      object-position: center top;
+      object-position: 50% 15%;
       border: 1px solid var(--border);
       box-shadow:
         0 0 0 10px var(--accent-dim),
@@ -385,6 +398,11 @@
     /* ── SECTION BASE ────────────────────────────────── */
     section {
       padding: 100px 52px;
+      scroll-margin-top: 68px;
+    }
+
+    #hero {
+      scroll-margin-top: 68px;
     }
 
     .s-inner {
@@ -454,7 +472,7 @@
     .aside-box {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--r-lg);
+      border-radius: var(--radius-lg);
       padding: 22px 20px;
       transition: border-color 0.2s;
     }
@@ -502,7 +520,7 @@
     .skill-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--r-lg);
+      border-radius: var(--radius-lg);
       padding: 26px 22px;
       transition: border-color 0.2s;
     }
@@ -537,14 +555,6 @@
       transition: all 0.15s;
     }
 
-    .sk.hi {
-      background: var(--accent-dim);
-      border-color: var(--accent);
-      border-width: 1.5px;
-      color: var(--accent);
-      font-weight: 500;
-    }
-
     /* ── PROJECTS ────────────────────────────────────── */
     #projects {
       background: var(--bg2);
@@ -559,7 +569,7 @@
     .proj-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--r-lg);
+      border-radius: var(--radius-lg);
       padding: 0;
       display: flex;
       flex-direction: column;
@@ -845,14 +855,14 @@
 
     .oss-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
     }
 
     .oss-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--r-lg);
+      border-radius: var(--radius-lg);
       padding: 28px 24px;
       transition:
         border-color 0.2s,
@@ -946,50 +956,6 @@
       stroke-width: 1.5;
     }
 
-    /* ── EDUCATION ───────────────────────────────────── */
-    #education {
-      background: var(--bg);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .edu-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-lg);
-      padding: 28px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 32px;
-      max-width: 640px;
-      transition: border-color 0.2s;
-    }
-
-    .edu-card:hover {
-      border-color: var(--accent);
-    }
-
-    .edu-deg {
-      font-family: "Syne", sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-
-    .edu-uni {
-      font-size: 0.88rem;
-      color: var(--text2);
-    }
-
-    .edu-year {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 0.78rem;
-      color: var(--accent);
-      white-space: nowrap;
-    }
-
     /* ── CONTACT ─────────────────────────────────────── */
     #contact {
       background: var(--bg2);
@@ -1023,8 +989,17 @@
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+      }
     }
 
     .contact-title {
@@ -1061,7 +1036,7 @@
       padding: 11px 18px;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--r);
+      border-radius: var(--radius);
       font-size: 0.82rem;
       font-family: "JetBrains Mono", monospace;
       color: var(--text2);
@@ -1221,16 +1196,200 @@
         grid-template-columns: 1fr;
       }
 
-      .edu-card {
-        flex-direction: column;
-        gap: 12px;
-      }
-
       .footer-inner {
         flex-direction: column;
         gap: 8px;
         text-align: center;
       }
+    }
+
+    /* ── FOCUS VISIBLE ───────────────────────────────────────────────── */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ── REDUCED MOTION ──────────────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* ── PRINT ───────────────────────────────────────────────────────── */
+    @media print {
+
+      nav,
+      .hero-cta,
+      .proj-links,
+      .contact-links,
+      footer {
+        display: none !important;
+      }
+
+      body {
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 11pt;
+        font-weight: 400;
+      }
+
+      .hero-photo {
+        width: 100px !important;
+        height: 100px !important;
+      }
+
+      section {
+        padding: 24pt 0 !important;
+        break-inside: avoid;
+      }
+
+      .proj-card,
+      .skill-card,
+      .tl-item,
+      .oss-card {
+        break-inside: avoid;
+        border: 1px solid #ccc !important;
+        background: #fff !important;
+        box-shadow: none !important;
+      }
+
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      a {
+        color: #000 !important;
+      }
+
+      [data-theme="dark"] {
+        --bg: #fff;
+        --text: #000;
+        --text2: #333;
+      }
+
+      .s-kicker::after {
+        display: none;
+      }
+    }
+
+    /* ── PROJECT IMAGE ───────────────────────────────────────────────── */
+    .proj-img-wrap {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--r);
+      overflow: hidden;
+      margin-bottom: 20px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .proj-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .proj-card:hover .proj-img-wrap img {
+      transform: scale(1.03);
+    }
+
+    .proj-img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      color: var(--text3);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+    }
+
+    .proj-img-placeholder svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--text3);
+      fill: none;
+      stroke-width: 1.2;
+      opacity: 0.5;
+    }
+
+    /* ── CURRENTLY DOING ─────────────────────────────────────────────── */
+    .now-strip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 52px;
+      max-width: 680px;
+    }
+
+    .now-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 6px;
+      box-shadow: 0 0 0 4px var(--accent-dim);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 4px var(--accent-dim);
+      }
+
+      50% {
+        box-shadow: 0 0 0 8px transparent;
+      }
+    }
+
+    .now-content {
+      flex: 1;
+    }
+
+    .now-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .now-text {
+      font-size: 0.92rem;
+      color: var(--text2);
+      line-height: 1.7;
+    }
+
+    .now-text strong {
+      color: var(--text);
+      font-weight: 500;
     }
   </style>
 </head>
@@ -1240,6 +1399,12 @@
   <nav>
     <div class="nav-logo">~/VR<span>.</span></div>
     <ul class="nav-links" id="navLinks">
+      <button class="nav-close-btn" id="closeBtn" aria-label="Close menu">
+        <svg viewBox="0 0 24 24">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
@@ -1250,7 +1415,7 @@
       <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">
         <!-- moon shown in light mode (click to go dark), sun shown in dark mode -->
         <svg id="themeBtnIcon" viewBox="0 0 24 24">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
       </button>
       <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">
@@ -1262,21 +1427,20 @@
   </nav>
 
   <!-- HERO -->
-  <div id="hero">
+  <section id="hero">
     <div class="hero-content">
-      <div class="hero-eyebrow">
-        Unity Developer &middot; Kyiv, Ukraine &#127482;&#127462;
-      </div>
       <h1 class="hero-name">Vasyl<br /><em>Romanets</em></h1>
       <p class="hero-role">
-        Senior Unity Developer &nbsp;&bull;&nbsp; 11+ Years Experience
+        Senior Unity Developer &nbsp;&bull;&nbsp; 11+ Years Experience &nbsp;&bull;&nbsp; Kyiv, Ukraine
+        &#127482;&#127462;
       </p>
       <p class="hero-pitch">
-        Goal-oriented game developer with <strong>11+ years</strong> of
-        shipped titles across mobile, PC, and console. Specialized in
-        <strong>scalable Unity architectures</strong>, C# performance
-        optimization, and clean codebases that hold up at scale &mdash; from
-        indie games to apps with millions of daily players.
+        I write <strong>C# that teams are proud to maintain</strong> &mdash;
+        and ship games that reach millions. Specialising in
+        <strong>scalable Unity architectures</strong> and performance
+        optimisation, I've taken titles from indie to top-grossing live apps
+        across mobile, PC, and console, serving
+        <strong>millions of daily active users</strong>.
       </p>
       <div class="hero-cta">
         <a href="#contact" class="btn-fill">
@@ -1306,72 +1470,73 @@
     <div class="hero-photo-wrap">
       <img id="heroPhoto" class="hero-photo" alt="Vasyl Romanets" />
     </div>
-  </div>
+  </section>
 
   <!-- ABOUT -->
   <section id="about">
     <div class="s-inner">
       <div class="s-kicker">About</div>
       <h2 class="s-title">Who I Am</h2>
+      <div class="now-strip reveal">
+        <div class="now-dot"></div>
+        <div class="now-content">
+          <div class="now-label">Currently</div>
+          <div class="now-text">
+            At <strong>Moon Active</strong> shipping features for
+            <strong>Travel Town</strong> &middot;
+            Exploring <strong>Unity 6</strong> rendering features &amp; DOTS &middot;
+            Actively integrating AI-assisted workflows (Cursor, Claude Code) into daily development
+          </div>
+        </div>
+      </div>
       <div class="about-cols">
         <div class="about-text reveal">
           <p>
-            I'm a <strong>Senior Unity Developer</strong> from Kyiv, Ukraine
-            with 11+ years of professional experience building games across
-            mobile, PC, and console. I care deeply about architecture, code
-            quality, and creating experiences that feel polished to players.
+            I've spent over a decade taking games from
+            concept to production across mobile, PC, and console. I've worked
+            in both fast-moving indie studios and large-scale product companies —
+            shipping full features solo and collaborating across large
+            engineering teams under tight live-ops pressure.
           </p>
           <p>
-            At <strong>Moon Active</strong> since October 2019, I work on
-            <strong>Pet Master</strong> and <strong>Travel Town</strong> — two
-            of the most technically demanding Unity projects in mobile gaming,
-            reached by millions of daily active users worldwide.
+            Since October 2019 at <strong>Moon Active</strong>, I've been a key
+            contributor to <strong>Pet Master</strong> and <strong>Travel Town</strong>
+            &mdash; two of the highest-grossing mobile titles in their genres,
+            collectively serving <strong>tens of millions of daily active users</strong>.
+            My work spans feature development, performance optimization, and
+            long-term codebase health at a scale very few Unity developers encounter.
           </p>
           <p>
-            Before that, I spent four years at <strong>FaceIT</strong> as a
-            core developer on <strong>Summer Catchers</strong> — a
-            cross-platform indie title built from scratch and shipped to
-            Steam, Nintendo Switch, iOS, and Android. I designed the entire
-            game architecture and touched everything: physics, game logic, UI,
-            input systems, analytics, localization, and cloud saves.
+            Before that, I was a core developer at <strong>FaceIT</strong>, where I played a key role in building <em
+              style="white-space:nowrap">Summer Catchers</em>,
+            a cross-platform title that shipped on Steam, Nintendo Switch, iOS,
+            and Android. Working alongside a strong technical team, I took
+            deep ownership of the game loop, UI systems,
+            multi-platform input, co-op mode, analytics pipeline, localization,
+            achievements, and cloud saves.
           </p>
           <p>
-            I'm a strong believer in
-            <strong>SOLID principles, clean architecture, and developer
-              ergonomics</strong>. Outside of work I maintain open-source Unity tools used by
-            developers worldwide, and I contributed fixes to
-            <strong>DOTween</strong> &mdash; the most popular tween engine in
-            the Unity ecosystem.
+            I'm a strong advocate for <strong>SOLID principles, clean architecture,
+              and developer experience</strong>. I actively contribute to the Unity
+            ecosystem through open-source tooling, including a credited contribution
+            to DOTween &mdash; used by hundreds of thousands of Unity projects worldwide.
           </p>
         </div>
         <div class="about-aside reveal">
           <div class="aside-box">
-            <div class="aside-lbl">Quick Facts</div>
+            <div class="aside-lbl">Languages</div>
             <div class="aside-tags">
-              <span class="aside-tag">&#128205; Kyiv, Ukraine</span>
-              <span class="aside-tag">11+ yrs experience</span>
-              <span class="aside-tag">English &mdash; C1</span>
               <span class="aside-tag">Ukrainian &mdash; Native</span>
-              <span class="aside-tag">PC, Mobile, Console</span>
+              <span class="aside-tag">English &mdash; C1</span>
             </div>
           </div>
           <div class="aside-box">
-            <div class="aside-lbl">Strengths</div>
+            <div class="aside-lbl">Outside Work</div>
             <div class="aside-tags">
-              <span class="aside-tag">Unity Architecture</span>
-              <span class="aside-tag">Perf. Optimization</span>
-              <span class="aside-tag">Cross-platform Dev</span>
-              <span class="aside-tag">Editor Tooling</span>
-              <span class="aside-tag">Code Review</span>
-              <span class="aside-tag">Tech Leadership</span>
-            </div>
-          </div>
-          <div class="aside-box">
-            <div class="aside-lbl">AI Workflow</div>
-            <div class="aside-tags">
-              <span class="aside-tag">Cursor</span>
-              <span class="aside-tag">Claude Code</span>
-              <span class="aside-tag">GitHub Copilot</span>
+              <span class="aside-tag">&#9822; Chess</span>
+              <span class="aside-tag">&#127925; Music</span>
+              <span class="aside-tag">&#127939; Sport</span>
+              <span class="aside-tag">&#128049; Cats &amp; Dogs</span>
             </div>
           </div>
         </div>
@@ -1388,26 +1553,29 @@
         <div class="skill-card reveal">
           <div class="skill-card-title">Core Unity</div>
           <div class="skill-tags">
-            <span class="sk hi">Unity 2D/3D</span><span class="sk hi">C#</span>
-            <span class="sk hi">Scripting API</span><span class="sk hi">Rendering Pipeline</span>
-            <span class="sk">uGUI / NGUI</span><span class="sk hi">Mecanim / Animation</span>
+            <span class="sk">Unity 2D/3D</span><span class="sk">C#</span>
+            <span class="sk">Scripting API</span><span class="sk">Rendering Pipeline</span>
+            <span class="sk">uGUI / NGUI</span><span class="sk">Mecanim / Animation</span>
             <span class="sk">Particle System</span><span class="sk">DOTween</span>
+            <span class="sk">Unity DOTS</span>
+            <span class="sk">Shader Graph</span>
+            <span class="sk">Unity Services</span>
           </div>
         </div>
         <div class="skill-card reveal">
           <div class="skill-card-title">Architecture</div>
           <div class="skill-tags">
-            <span class="sk hi">SOLID Principles</span><span class="sk hi">GoF Patterns</span>
+            <span class="sk">SOLID Principles</span><span class="sk">GoF Patterns</span>
             <span class="sk">ECS</span><span class="sk">MVC / MVVM</span>
-            <span class="sk hi">Zenject / StrangeIoC</span><span class="sk">Object Pooling</span>
+            <span class="sk">Zenject / StrangeIoC</span><span class="sk">Object Pooling</span>
             <span class="sk">Data Structures</span><span class="sk">Algorithms</span>
           </div>
         </div>
         <div class="skill-card reveal">
           <div class="skill-card-title">Performance</div>
           <div class="skill-tags">
-            <span class="sk hi">Memory Optimization</span><span class="sk hi">Unity Profiler</span>
-            <span class="sk hi">Addressables</span><span class="sk">Asset Bundles</span>
+            <span class="sk">Memory Optimization</span><span class="sk">Unity Profiler</span>
+            <span class="sk">Addressables</span><span class="sk">Asset Bundles</span>
             <span class="sk">Build Size</span><span class="sk">Rendering Opt.</span>
             <span class="sk">Physics Opt.</span><span class="sk">Frame Debugger</span>
           </div>
@@ -1433,12 +1601,23 @@
         <div class="skill-card reveal">
           <div class="skill-card-title">Tools & Process</div>
           <div class="skill-tags">
-            <span class="sk hi">Git (LFS, hooks, submodules)</span>
+            <span class="sk">Git (LFS, hooks, submodules)</span>
             <span class="sk">Jira / Confluence</span>
             <span class="sk">TeamCity / Jenkins</span>
             <span class="sk">Unity Cloud Build</span>
             <span class="sk">Postman</span>
             <span class="sk">Agile / Scrum</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-title">AI-Assisted Development</div>
+          <div class="skill-tags">
+            <span class="sk">Cursor</span>
+            <span class="sk">Claude Code</span>
+            <span class="sk">GitHub Copilot</span>
+            <span class="sk">ChatGPT</span>
+            <span class="sk">AI-driven Refactoring</span>
+            <span class="sk">Prompt Engineering</span>
           </div>
         </div>
       </div>
@@ -1453,10 +1632,18 @@
       <div class="proj-grid">
         <!-- Travel Town -->
         <div class="proj-card reveal">
+          <div class="proj-img-wrap">
+            <img src="https://raw.githubusercontent.com/VasylRomanets/portfolio/main/travel-town.gif"
+              alt="Travel Town gameplay gif" loading="lazy"
+              onerror="this.parentElement.innerHTML='<div class=\'proj-img-placeholder\'><svg viewBox=\'0 0 24 24\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg><span>Travel Town</span></div>'" />
+          </div>
           <div class="proj-card-header">
             <div class="proj-card-header-left">
               <div class="proj-icon">
-                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
               </div>
               <div>
                 <div class="proj-name">Travel Town</div>
@@ -1466,54 +1653,64 @@
             <div class="proj-idx">01</div>
           </div>
           <div class="proj-card-body">
-          <div class="pblock">
-            <div class="pblock-lbl">About</div>
-            <p>
-              A merge-adventure mobile game with rich progression systems,
-              complex economy design, and a large, constantly updated content
-              pipeline serving millions of daily active users.
-            </p>
-          </div>
-          <div class="pblock">
-            <div class="pblock-lbl">Contribution</div>
-            <p>
-              Worked as Senior Unity Developer on feature development,
-              architecture improvements, legacy code refactoring, and
-              extracting functionality into reusable packages used across
-              multiple Moon Active projects.
-            </p>
-          </div>
-          <div class="pblock">
-            <div class="pblock-lbl">Impact</div>
-            <p>
-              One of the top-grossing merge games globally. Features I shipped
-              are experienced daily by millions of players. Maintained high
-              performance on a wide range of mobile devices.
-            </p>
-          </div>
-          <div class="proj-tags">
-            <span class="pt">Unity</span><span class="pt">C#</span><span class="pt">Strange IoC</span>
-            <span class="pt">DOTween</span><span class="pt">Firebase</span><span class="pt">Mobile</span>
-          </div>
-          <div class="proj-links">
-            <a href="https://apps.apple.com/us/app/travel-town-merge-adventure/id1521236603" target="_blank" class="pl">
-              <svg viewBox="0 0 24 24">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                <polyline points="15 3 21 3 21 9" />
-                <line x1="10" y1="14" x2="21" y2="3" />
-              </svg>
-              App Store
-            </a>
-          </div>
+            <div class="pblock">
+              <div class="pblock-lbl">About</div>
+              <p>
+                A top-grossing merge-adventure mobile game with a deep progression
+                economy, large live-ops content pipeline, and one of the most
+                complex Unity codebases in the mobile gaming industry.
+              </p>
+            </div>
+            <div class="pblock">
+              <div class="pblock-lbl">Contribution</div>
+              <p>
+                Designed and shipped new gameplay features end-to-end; improved core
+                architecture by decoupling tightly coupled systems and extracting
+                shared logic into reusable, independently versioned packages. Drove legacy refactors
+                that reduced technical debt and unblocked parallel team delivery.
+              </p>
+            </div>
+            <div class="pblock">
+              <div class="pblock-lbl">Impact</div>
+              <p>
+                Features shipped to tens of millions of daily active users with zero
+                critical regressions. Package extraction work reduced cross-team
+                integration friction and became the internal standard for new
+                feature modules.
+              </p>
+            </div>
+            <div class="proj-tags">
+              <span class="pt">Unity</span><span class="pt">C#</span><span class="pt">Strange IoC</span>
+              <span class="pt">DOTween</span><span class="pt">Firebase</span><span class="pt">Mobile</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://apps.apple.com/us/app/travel-town-merge-adventure/id1521236603" target="_blank"
+                class="pl">
+                <svg viewBox="0 0 24 24">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+                App Store
+              </a>
+            </div>
           </div>
         </div>
 
         <!-- Summer Catchers -->
         <div class="proj-card reveal">
+          <div class="proj-img-wrap">
+            <img src="https://raw.githubusercontent.com/VasylRomanets/portfolio/main/summer-catchers.gif"
+              alt="Summer Catchers gameplay gif" loading="lazy"
+              onerror="this.parentElement.innerHTML='<div class=\'proj-img-placeholder\'><svg viewBox=\'0 0 24 24\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg><span>Summer Catchers</span></div>'" />
+          </div>
           <div class="proj-card-header">
             <div class="proj-card-header-left">
               <div class="proj-icon">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" />
+                  <polygon points="10 8 16 12 10 16 10 8" />
+                </svg>
               </div>
               <div>
                 <div class="proj-name">Summer Catchers</div>
@@ -1523,63 +1720,72 @@
             <div class="proj-idx">02</div>
           </div>
           <div class="proj-card-body">
-          <div class="pblock">
-            <div class="pblock-lbl">Problem</div>
-            <p>
-              Build a cross-platform indie game with pixel-art aesthetics,
-              physics-based side-scrolling, co-op mode, and adventure RPG
-              elements &mdash; optimized for both high-end PC and low-end
-              mobile.
-            </p>
-          </div>
-          <div class="pblock">
-            <div class="pblock-lbl">Solution</div>
-            <p>
-              Designed the game architecture from scratch at FaceIT. Built the
-              physics driving system, co-op input pipeline (Rewired), UI,
-              animations, procedural generation, analytics, localization,
-              achievements, and cloud saves.
-            </p>
-          </div>
-          <div class="pblock">
-            <div class="pblock-lbl">Impact</div>
-            <p>
-              Shipped on 4 platforms. Critically acclaimed for pixel art,
-              satisfying physics, and soundtrack. Available worldwide on
-              Steam, Switch, App Store, and Google Play.
-            </p>
-          </div>
-          <div class="proj-tags">
-            <span class="pt">Unity</span><span class="pt">C#</span><span class="pt">2D Physics</span>
-            <span class="pt">Cross-platform</span><span class="pt">Rewired</span><span class="pt">DOTween</span>
-          </div>
-          <div class="proj-links">
-            <a href="https://summercatchers.com" target="_blank" class="pl">
-              <svg viewBox="0 0 24 24">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                <polyline points="15 3 21 3 21 9" />
-                <line x1="10" y1="14" x2="21" y2="3" />
-              </svg>
-              Website
-            </a>
-            <a href="https://store.steampowered.com/app/908050/Summer_Catchers/" target="_blank" class="pl">
-              <svg viewBox="0 0 24 24">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                <polyline points="15 3 21 3 21 9" />
-                <line x1="10" y1="14" x2="21" y2="3" />
-              </svg>
-              Steam
-            </a>
-          </div>
+            <div class="pblock">
+              <div class="pblock-lbl">Problem</div>
+              <p>
+                Deliver a premium indie game across four platforms &mdash; PC,
+                Nintendo Switch, iOS, and Android &mdash; with a small team,
+                physics-driven gameplay, local co-op, and full localization,
+                while maintaining consistent quality on both high-end and
+                low-end hardware.
+              </p>
+            </div>
+            <div class="pblock">
+              <div class="pblock-lbl">Solution</div>
+              <p>
+                Served as a Core Unity Developer in a senior three-person team, responsible for the technical
+                implementation of the procedural world generation, physics-based driving systems, the Rewired-based
+                co-op input pipeline, UI architecture, and Mecanim animations, while
+                managing technical synchronization with the publisher.
+              </p>
+            </div>
+            <div class="pblock">
+              <div class="pblock-lbl">Impact</div>
+              <p>
+                Successfully shipped on Steam, Nintendo Switch, App Store, and
+                Google Play. Received positive critical reception and remains
+                commercially active across all platforms.
+              </p>
+            </div>
+            <div class="proj-tags">
+              <span class="pt">Unity</span><span class="pt">C#</span><span class="pt">2D Physics</span>
+              <span class="pt">Cross-platform</span><span class="pt">Rewired</span><span class="pt">DOTween</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://summercatchers.com" target="_blank" class="pl">
+                <svg viewBox="0 0 24 24">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+                Website
+              </a>
+              <a href="https://store.steampowered.com/app/908050/Summer_Catchers/" target="_blank" class="pl">
+                <svg viewBox="0 0 24 24">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+                Steam
+              </a>
+            </div>
           </div>
         </div>
 
         <!-- UnityLogWrapper -->
         <div class="proj-card reveal">
+          <div class="proj-img-wrap">
+            <img src="https://raw.githubusercontent.com/VasylRomanets/portfolio/main/unity-log-wrapper.jpg"
+              alt="Unity Log Wrapper screenshot" loading="lazy"
+              onerror="this.parentElement.innerHTML='<div class=\'proj-img-placeholder\'><svg viewBox=\'0 0 24 24\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg><span>Travel Town</span></div>'" />
+          </div>
           <div class="proj-card-header">
             <div class="proj-card-header-left">
               <div class="proj-icon">
-                <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <polyline points="16 18 22 12 16 6" />
+                  <polyline points="8 6 2 12 8 18" />
+                </svg>
               </div>
               <div>
                 <div class="proj-name">UnityLogWrapper</div>
@@ -1589,43 +1795,42 @@
             <div class="proj-idx">03</div>
           </div>
           <div class="proj-card-body">
-          <div class="pblock">
-            <div class="pblock-lbl">Problem</div>
-            <p>
-              UnityEngine.Debug calls execute in release builds, wasting CPU
-              on low-end devices. Manually wrapping thousands of calls breaks
-              Editor double-click navigation.
-            </p>
-          </div>
-          <div class="pblock">
-            <div class="pblock-lbl">Solution</div>
-            <p>
-              Drop-in wrapper in a separate assembly using
-              [Conditional("LOGGING")] &mdash; logs compile out entirely in
-              release. Editor still navigates to original call sites.
-            </p>
-          </div>
-          <div class="pblock">
-            <div class="pblock-lbl">Impact</div>
-            <p>
-              Zero-friction integration (one folder drop). Eliminates all log
-              overhead in production builds with no changes to existing call
-              sites.
-            </p>
-          </div>
-          <div class="proj-tags">
-            <span class="pt">C#</span><span class="pt">Unity</span><span class="pt">Performance</span><span
-              class="pt">Assembly Definition</span>
-          </div>
-          <div class="proj-links">
-            <a href="https://github.com/VasylRomanets/UnityLogWrapper" target="_blank" class="pl">
-              <svg viewBox="0 0 24 24">
-                <path
-                  d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-              </svg>
-              GitHub
-            </a>
-          </div>
+            <div class="pblock">
+              <div class="pblock-lbl">Problem</div>
+              <p>
+                UnityEngine.Debug calls execute in release builds, wasting CPU
+                on low-end devices. Manually wrapping thousands of calls breaks
+                Editor double-click navigation.
+              </p>
+            </div>
+            <div class="pblock">
+              <div class="pblock-lbl">Solution</div>
+              <p>
+                Drop-in wrapper in a separate assembly using
+                [Conditional("LOGGING")] &mdash; logs compile out entirely in
+                release. Editor still navigates to original call sites.
+              </p>
+            </div>
+            <div class="pblock">
+              <div class="pblock-lbl">Impact</div>
+              <p>
+                Zero-friction integration (one folder drop). Eliminates all log
+                overhead in production builds with no changes to existing call
+                sites.
+              </p>
+            </div>
+            <div class="proj-tags">
+              <span class="pt">C#</span><span class="pt">Unity</span><span class="pt">Performance</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://github.com/VasylRomanets/UnityLogWrapper" target="_blank" class="pl">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                </svg>
+                GitHub
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -1648,21 +1853,24 @@
           </div>
           <div class="tl-items">
             <div class="tl-pt">
-              Working on Pet Master and Travel Town &mdash; two high-traffic
-              mobile games with millions of daily active users globally.
+              <span>Key contributor on <em>Pet Master</em> and <em>Travel Town</em> &mdash;
+                top-grossing mobile titles with tens of millions of DAU, running
+                on one of the most demanding Unity codebases in the industry.</span>
             </div>
             <div class="tl-pt">
-              Designing and implementing new game features and components;
-              maintaining and refactoring legacy code with direct impact at
-              scale.
+              Designed and delivered new gameplay features end-to-end; refactored
+              legacy systems to improve reliability, testability, and team
+              velocity at scale.
             </div>
             <div class="tl-pt">
-              Extracting features into separate reusable modules/packages to
-              improve team scalability and code ownership across projects.
+              Contributed to a module extraction initiative &mdash; helping decompose
+              monolithic features into reusable, independently versioned
+              packages to improve scalability and code ownership within the team.
             </div>
             <div class="tl-pt">
-              Leveraging AI-assisted dev tools (Cursor, Claude Code, GitHub
-              Copilot) to accelerate delivery and maintain quality standards.
+              Adopted AI-assisted tooling (Cursor, Claude Code)
+              early, resulting in measurably faster delivery cycles without
+              compromising code review standards.
             </div>
           </div>
           <div class="tl-tech">
@@ -1684,24 +1892,25 @@
           </div>
           <div class="tl-items">
             <div class="tl-pt">
-              Core developer on Summer Catchers &mdash; an arcade racing game
-              with adventure elements, shipped across Steam, Nintendo Switch,
-              iOS, and Android.
+              <span>Core developer and key technical contributor on <em>Summer Catchers</em>
+                &mdash; a physics-driven cross-platform indie game shipped on
+                Steam, Nintendo Switch, iOS, and Android from a single codebase.</span>
             </div>
             <div class="tl-pt">
-              Designed game architecture from scratch; built 2D physics
-              system, game logic, UI, tween/Mecanim animations, and advanced
-              multi-platform co-op input (Rewired).
+              Co-developed and built the entire technical foundation: game
+              architecture, full UI system, Mecanim animations, and a Rewired-based
+              multi-platform co-op input pipeline.
             </div>
             <div class="tl-pt">
-              Integrated analytics, statistics, localization, achievements,
-              cloud saves; collaborated directly with publisher and
-              localization team.
+              Integrated the full game services layer: analytics, statistics,
+              localization, achievements, and cloud saves. Primary technical
+              contact with the publisher and localization vendor.
             </div>
             <div class="tl-pt">
-              Performance optimization across code, memory, build size,
-              rendering, physics, and UI. Extended the Editor with custom
-              inspectors, property drawers, and editor windows.
+              Delivered comprehensive performance optimization passes across CPU,
+              memory, GPU, build size, and load times. Built custom Editor
+              tooling (inspectors, property drawers, editor windows) that
+              accelerated the team's iteration speed throughout the project.
             </div>
           </div>
           <div class="tl-tech">
@@ -1714,20 +1923,46 @@
 
         <div class="tl-item reveal">
           <div class="tl-dot"></div>
+          <div class="tl-when">Jan 2019 &mdash; Feb 2019</div>
+          <div class="tl-role">Open Source Contributor</div>
+          <div class="tl-co">
+            <a href="http://dotween.demigiant.com" target="_blank">DOTween</a>
+            &middot; Rome, Italy &middot; <em>alongside Face IT</em>
+          </div>
+          <div class="tl-items">
+            <div class="tl-pt">
+              <span>Identified and resolved edge-case bugs in <em>DOTween</em> &mdash; the most
+                widely adopted tween engine in the Unity ecosystem, used in
+                hundreds of thousands of projects. Contributions shipped in all
+                subsequent releases; formally credited on the
+                <a href="http://dotween.demigiant.com/credits.php" target="_blank" style="color: var(--accent)">official
+                  credits page</a>.</span>
+            </div>
+          </div>
+          <div class="tl-tech">
+            <span class="tl-tag">C#</span><span class="tl-tag">DOTween</span><span class="tl-tag">Unity</span>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
           <div class="tl-when">Apr 2018 &mdash; May 2018</div>
           <div class="tl-role">Unity Developer (Contract)</div>
           <div class="tl-co">
             <a href="https://amrita.studio" target="_blank">Amrita Studio</a>
-            &middot; Dnipro, Ukraine
+            &middot; Dnipro, Ukraine &middot; <em>part-time alongside Face IT</em>
           </div>
           <div class="tl-items">
             <div class="tl-pt">
-              Designed and built a highly-optimized audio system and "screen
-              borders" feature for their match-3 game Birds Isle.
+              <span>Delivered a highly-optimized audio system and &ldquo;screen
+                borders&rdquo; feature for the match-3 title <em>Birds Isle</em>,
+                meeting strict performance requirements for mid-range Android
+                devices.</span>
             </div>
             <div class="tl-pt">
-              Conducted a full project code review; was offered a Team Lead
-              position but declined to finish Summer Catchers.
+              <span>Performed a full codebase audit and presented a structured
+                refactoring roadmap. Was offered a permanent Team Lead role
+                &mdash; declined in order to ship <em>Summer Catchers</em>.</span>
             </div>
           </div>
           <div class="tl-tech">
@@ -1738,37 +1973,18 @@
 
         <div class="tl-item reveal">
           <div class="tl-dot"></div>
-          <div class="tl-when">Jan 2019 &mdash; Feb 2019</div>
-          <div class="tl-role">Open Source Contributor</div>
-          <div class="tl-co">
-            <a href="http://dotween.demigiant.com" target="_blank">DOTween</a>
-            &middot; Rome, Italy
-          </div>
-          <div class="tl-items">
-            <div class="tl-pt">
-              <span>Contributed fixes and improvements to DOTween &mdash; the most
-              widely-used tween animation engine in the Unity ecosystem.
-              Changes are included in all subsequent releases and credited on
-              the
-              <a href="http://dotween.demigiant.com/credits.php" target="_blank"
-                style="color: var(--accent)">credits page</a>.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-item reveal">
-          <div class="tl-dot"></div>
           <div class="tl-when">Jul 2015 &mdash; Aug 2015</div>
-          <div class="tl-role">Unity Developer (Part-time, Remote)</div>
+          <div class="tl-role">Unity Developer</div>
           <div class="tl-co">
             <a href="https://www.vertigogames.co" target="_blank">Vertigo LTD</a>
-            &middot; Istanbul, Turkey
+            &middot; Istanbul, Turkey &middot; <em>part-time remote alongside Face IT</em>
           </div>
           <div class="tl-items">
             <div class="tl-pt">
-              Full development life cycle for Get 20, a sliding block puzzle
-              game &mdash; integrated in-app purchases, ads, leaderboards,
-              published on App Store and Google Play.
+              <span>Developed <em>Get 20</em>, a sliding-block puzzle game
+                &mdash; built the full game from scratch, integrated in-app
+                purchases, ad mediation, and leaderboards, and successfully
+                published on both App Store and Google Play.</span>
             </div>
           </div>
           <div class="tl-tech">
@@ -1787,9 +2003,11 @@
           </div>
           <div class="tl-items">
             <div class="tl-pt">
-              First professional game dev role &mdash; built mobile game
-              prototypes and integrated in-app purchases and ads across
-              multiple projects (NDA).
+              First professional Unity role. Developed mobile game prototypes
+              across multiple projects, integrating monetization (IAP, ad
+              networks) from day one. Built the hands-on foundation in Unity,
+              C#, and mobile publishing pipelines that all subsequent work
+              built upon.
             </div>
           </div>
           <div class="tl-tech">
@@ -1870,23 +2088,6 @@
     </div>
   </section>
 
-  <!-- EDUCATION -->
-  <section id="education">
-    <div class="s-inner">
-      <div class="s-kicker">Education</div>
-      <h2 class="s-title">Background</h2>
-      <div class="edu-card reveal">
-        <div>
-          <div class="edu-deg">Master's Degree in Computer Science</div>
-          <div class="edu-uni">
-            Zaporizhzhia National Technical University
-          </div>
-        </div>
-        <div class="edu-year">2007 &mdash; 2012</div>
-      </div>
-    </div>
-  </section>
-
   <!-- CONTACT -->
   <section id="contact">
     <div class="s-inner">
@@ -1900,8 +2101,10 @@
           Let's build<br /><em>something great</em>.
         </h2>
         <p class="contact-sub reveal">
-          Open to new opportunities and interesting conversations. Reach out
-          via email, LinkedIn, or Telegram &mdash; I typically respond within a day.
+          Open to senior individual contributor and tech lead roles at product
+          companies building games at scale. Happy to discuss architecture,
+          engineering culture, or anything Unity-related &mdash; I typically
+          respond within a day.
         </p>
         <div class="contact-links reveal">
           <a href="mailto:romanets.vasyl@gmail.com" class="c-link">
@@ -1940,7 +2143,7 @@
 
   <footer>
     <div class="footer-inner">
-      <span class="ft">&copy; 2026 <span class="ft-acc">Vasyl Romanets</span></span>
+      <span class="ft">&copy; <span id="footerYear">2026</span> <span class="ft-acc">Vasyl Romanets</span></span>
       <span class="ft">Built with care &middot; Kyiv &#127482;&#127462;</span>
     </div>
   </footer>
@@ -1981,14 +2184,42 @@
 
       var mb = document.getElementById("menuBtn");
       var nl = document.getElementById("navLinks");
-      mb.addEventListener("click", function () {
-        nl.classList.toggle("open");
+      var cb = document.getElementById("closeBtn");
+
+      function closeMenu() { nl.classList.remove("open"); }
+
+      mb.addEventListener("click", function () { nl.classList.toggle("open"); });
+      cb.addEventListener("click", closeMenu);
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeMenu();
       });
+
       nl.querySelectorAll("a").forEach(function (a) {
-        a.addEventListener("click", function () {
-          nl.classList.remove("open");
-        });
+        a.addEventListener("click", closeMenu);
       });
+
+      // Dynamic copyright year
+      var fy = document.getElementById('footerYear');
+      if (fy) fy.textContent = new Date().getFullYear();
+
+      // Active nav scroll-spy
+      var navAnchors = Array.from(nl.querySelectorAll('a[href^="#"]'));
+      var sections = navAnchors.map(function (a) {
+        return document.querySelector(a.getAttribute('href'));
+      }).filter(Boolean);
+      var navObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          var id = e.target.getAttribute('id');
+          var link = nl.querySelector('a[href="#' + id + '"]');
+          if (link) {
+            if (e.isIntersecting) link.classList.add('active');
+            else link.classList.remove('active');
+          }
+        });
+      }, { rootMargin: '-20% 0px -70% 0px' });
+      sections.forEach(function (s) { navObs.observe(s); });
+
     })();
   </script>
 </body>
